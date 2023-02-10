@@ -14,6 +14,7 @@ class FeedViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemPurple
         myButton()
+        
     }
    
     func myButton(){
@@ -23,5 +24,11 @@ class FeedViewController: UIViewController {
         button.setTitle("New post", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .mainWhite
+        button.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func handleButtonTapped(){
+        let postVC = PostViewController()
+        navigationController?.pushViewController(postVC, animated: true)
     }
 }

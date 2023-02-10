@@ -31,10 +31,10 @@ class MainTabBarController: UITabBarController {
     
     //NC
     private func generateTabBar(){
-            viewControllers = [
-                generateNC(viewController: FeedViewController(), itemName: "Feed", itemImage: UIImage(systemName: "house.fill")),
-                generateNC(viewController: ProfileViewController(), itemName: "Profile", itemImage : UIImage(systemName: "person.fill"))
-            ]
+        var feedNC = generateNC(viewController: FeedViewController(), itemName: "Feed", itemImage: UIImage(systemName: "house.fill"))
+        var profileNC = generateNC(viewController: ProfileViewController(), itemName: "Profile", itemImage : UIImage(systemName: "person.fill"))
+        
+            viewControllers = [feedNC,profileNC]
     }
         //NC
     private func generateNC(viewController: UIViewController, itemName: String, itemImage: UIImage?) ->UINavigationController {
