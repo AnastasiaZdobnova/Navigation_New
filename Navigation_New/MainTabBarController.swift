@@ -33,7 +33,7 @@ class MainTabBarController: UITabBarController {
     private func generateTabBar(){
             viewControllers = [
                 generateNC(viewController: FeedViewController(), itemName: "Feed", itemImage: UIImage(systemName: "house.fill")),
-                generateNC(viewController: ProfileViewController(), itemName: "Profile_new", itemImage : UIImage(systemName: "person.fill"))
+                generateNC(viewController: ProfileViewController(), itemName: "Profile", itemImage : UIImage(systemName: "person.fill"))
             ]
     }
         //NC
