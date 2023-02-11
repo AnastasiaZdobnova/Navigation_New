@@ -30,5 +30,15 @@ class FeedViewController: UIViewController {
     @objc func handleButtonTapped(){
         let postVC = PostViewController()
         navigationController?.pushViewController(postVC, animated: true)
+        postVC.post = post
+        
     }
+    
+    
+    
+    let post = Post(title: "New Title")
+}
+
+struct Post {
+    let title: String
 }
