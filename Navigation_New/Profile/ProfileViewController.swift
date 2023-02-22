@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController {
         //view.addSubview(profileHeaderView)
         navigationItem.title = "Profile"
         // Do any additional setup after loading the view.
+        
     }
     
     override func viewWillLayoutSubviews(){
@@ -33,7 +34,9 @@ class ProfileViewController: UIViewController {
             profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             profileHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
     }
+    
 
     /*
     // MARK: - Navigation

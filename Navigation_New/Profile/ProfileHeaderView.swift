@@ -97,5 +97,13 @@ class ProfileHeaderView: UIView {
             
             
         ])
+        profileButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        
+    }
+    @objc func buttonPressed() {
+        guard let statusText = profileUITextField.text else { return }
+        print("Текст из поля статус: \(statusText)")
     }
 }
+
+
