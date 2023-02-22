@@ -30,7 +30,7 @@ class ProfileHeaderView: UIView {
         return imageView
     }()
     
-    private let profileUITextField : UITextField = {
+    private let profileStatusTextField : UITextField = {
         let profileUITextField = UITextField()
         profileUITextField.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         profileUITextField.text = "Waiting for something..."
@@ -39,10 +39,22 @@ class ProfileHeaderView: UIView {
         return profileUITextField
     }()
     
+    private let profileEditStatusTextField : UITextField = {
+        let profileEditStatusTextField = UITextField()
+        profileEditStatusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        profileEditStatusTextField.textColor = .black
+        profileEditStatusTextField.backgroundColor = .white
+        profileEditStatusTextField.layer.cornerRadius = 12
+        profileEditStatusTextField.layer.borderColor = UIColor.black.cgColor
+        profileEditStatusTextField.layer.borderWidth = 1
+        profileEditStatusTextField.textAlignment = .left
+        return profileEditStatusTextField
+    }()
+    
     private let profileButton : UIButton = {
         let profileButton = UIButton()
         //        profileButton.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        profileButton.setTitle("Show status", for: .normal)
+        profileButton.setTitle("Set status", for: .normal)
         profileButton.setTitleColor(.white, for: .normal)
         profileButton.backgroundColor = .blue
         profileButton.layer.cornerRadius = 4
@@ -68,13 +80,15 @@ class ProfileHeaderView: UIView {
         
         addSubview(profileImageView)
         addSubview(nameLabel)
-        addSubview(profileUITextField)
+        addSubview(profileStatusTextField)
         addSubview(profileButton)
+        addSubview(profileEditStatusTextField)
         
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        profileUITextField.translatesAutoresizingMaskIntoConstraints = false
+        profileStatusTextField.translatesAutoresizingMaskIntoConstraints = false
         profileButton.translatesAutoresizingMaskIntoConstraints = false
+        profileEditStatusTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),//по X
@@ -87,22 +101,36 @@ class ProfileHeaderView: UIView {
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             profileButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            profileButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 16),
+            profileButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 36),
             profileButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             profileButton.heightAnchor.constraint(equalToConstant: 50),//высота
             
-            profileUITextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            profileUITextField.bottomAnchor.constraint(equalTo: profileButton.topAnchor, constant: -34),
+            profileStatusTextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            profileStatusTextField.bottomAnchor.constraint(equalTo: profileButton.topAnchor, constant: -60),
+            
+            profileEditStatusTextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            profileEditStatusTextField.heightAnchor.constraint(equalToConstant: 40),
+            profileEditStatusTextField.topAnchor.constraint(equalTo: profileStatusTextField.bottomAnchor, constant: 10),
+            profileEditStatusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             
             
         ])
+        
         profileButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
+        profileEditStatusTextField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
+        
     }
+    private var statusText = ""
+    
     @objc func buttonPressed() {
-        guard let statusText = profileUITextField.text else { return }
-        print("Текст из поля статус: \(statusText)")
+        profileStatusTextField.text = statusText
+    }
+    
+    @objc func statusTextChanged(_ textField: UITextField) {
+        guard let status = textField.text else { return }
+        statusText = status
     }
 }
 
