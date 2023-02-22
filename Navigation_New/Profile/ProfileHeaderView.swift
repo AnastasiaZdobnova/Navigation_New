@@ -16,6 +16,7 @@ class ProfileHeaderView: UIView {
         label.numberOfLines = 1 // текст внутри label отображается только в одну строку. Если текст не помещается в одну строку, то он будет обрезан и заменен троеточием.
         label.textAlignment = .left // выравнивание
         label.text = "John Smith"
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -27,6 +28,7 @@ class ProfileHeaderView: UIView {
         imageView.layer.borderColor = UIColor.white.cgColor // цвет рамки
         imageView.layer.borderWidth = 3 // ширина рамки
         imageView.layer.cornerRadius = 50 //скругление
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -36,6 +38,7 @@ class ProfileHeaderView: UIView {
         profileUITextField.text = "Waiting for something..."
         profileUITextField.textColor = .gray
         profileUITextField.textAlignment = .left
+        profileUITextField.translatesAutoresizingMaskIntoConstraints = false
         return profileUITextField
     }()
     
@@ -48,6 +51,13 @@ class ProfileHeaderView: UIView {
         profileEditStatusTextField.layer.borderColor = UIColor.black.cgColor
         profileEditStatusTextField.layer.borderWidth = 1
         profileEditStatusTextField.textAlignment = .left
+        profileEditStatusTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        profileEditStatusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: profileEditStatusTextField.frame.height))
+        profileEditStatusTextField.leftViewMode = .always
+        
+        profileEditStatusTextField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
+        
         return profileEditStatusTextField
     }()
     
@@ -62,6 +72,9 @@ class ProfileHeaderView: UIView {
         profileButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         profileButton.layer.shadowRadius = 4
         profileButton.layer.shadowOpacity = 0.7
+        profileButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        profileButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
         return profileButton
     }()
@@ -83,12 +96,6 @@ class ProfileHeaderView: UIView {
         addSubview(profileStatusTextField)
         addSubview(profileButton)
         addSubview(profileEditStatusTextField)
-        
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        profileStatusTextField.translatesAutoresizingMaskIntoConstraints = false
-        profileButton.translatesAutoresizingMaskIntoConstraints = false
-        profileEditStatusTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),//по X
@@ -117,20 +124,24 @@ class ProfileHeaderView: UIView {
             
         ])
         
-        profileButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        
-        profileEditStatusTextField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
-        
     }
     private var statusText = ""
     
     @objc func buttonPressed() {
+        print(statusText)
         profileStatusTextField.text = statusText
     }
     
     @objc func statusTextChanged(_ textField: UITextField) {
         guard let status = textField.text else { return }
         statusText = status
+    }
+}
+extension UITextField {
+    func setLeftPadding(_ amount: CGFloat) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
     }
 }
 
