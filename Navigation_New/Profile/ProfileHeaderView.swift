@@ -16,10 +16,10 @@ class ProfileHeaderView: UIView {
     // Создаем экземпляр UILabel
     private let nameLabel: UILabel = {
             let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
             label.textColor = .black
-            label.numberOfLines = 1
-            label.textAlignment = .left
+            label.numberOfLines = 1 // текст внутри label отображается только в одну строку. Если текст не помещается в одну строку, то он будет обрезан и заменен троеточием.
+            label.textAlignment = .left // выравнивание
             label.text = "John Smith"
             return label
         }()
@@ -28,11 +28,11 @@ class ProfileHeaderView: UIView {
     private let profileImageView: UIImageView = {
             let imageView = UIImageView()
             imageView.image = UIImage(named: "image")
-            imageView.contentMode = .scaleAspectFill
+            imageView.contentMode = .scaleAspectFill// режим заполнения (fill) содержимого UIImageView путем масштабирования и обрезания краев изображения, чтобы оно заполняло все доступное место, сохраняя при этом пропорции.
             imageView.clipsToBounds = true
-            imageView.backgroundColor = .white
-            imageView.layer.borderColor = UIColor.systemGray.cgColor
-            imageView.layer.borderWidth = 1
+            imageView.layer.borderColor = UIColor.white.cgColor // цвет рамки
+            imageView.layer.borderWidth = 3 // ширина рамки
+            imageView.layer.cornerRadius = 50 //скругление
             return imageView
         }()
     
@@ -54,13 +54,13 @@ class ProfileHeaderView: UIView {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            profileImageView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            profileImageView.widthAnchor.constraint(equalToConstant: 64),
-            profileImageView.heightAnchor.constraint(equalToConstant: 64),
+            profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),//по X
+            profileImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),//по Y
+            profileImageView.widthAnchor.constraint(equalToConstant: 100),//ширина
+            profileImageView.heightAnchor.constraint(equalToConstant: 100),//высота
             
-            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 16),
-            nameLabel.topAnchor.constraint(equalTo: profileImageView.topAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 36), // расстояние от изображения
+            nameLabel.topAnchor.constraint(equalTo: profileImageView.topAnchor, constant: 11), //27-16
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
 //            bioLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 16),
