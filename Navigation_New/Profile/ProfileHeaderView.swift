@@ -42,7 +42,7 @@ class ProfileHeaderView: UIView {
         return profileUITextField
     }()
     
-    private let profileEditStatusTextField : UITextField = {
+    private lazy var profileEditStatusTextField : UITextField = {
         let profileEditStatusTextField = UITextField()
         profileEditStatusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         profileEditStatusTextField.textColor = .black
@@ -61,7 +61,7 @@ class ProfileHeaderView: UIView {
         return profileEditStatusTextField
     }()
     
-    private let profileButton : UIButton = {
+    private lazy var profileButton : UIButton = {
         let profileButton = UIButton()
         //        profileButton.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         profileButton.setTitle("Set status", for: .normal)
