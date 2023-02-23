@@ -31,8 +31,8 @@ class MainTabBarController: UITabBarController {
     
     //NC
     private func generateTabBar(){
-        var feedNC = generateNC(viewController: FeedViewController(), itemName: "Feed", itemImage: UIImage(systemName: "house.fill"))
-        var profileNC = generateNC(viewController: ProfileViewController(), itemName: "Profile", itemImage : UIImage(systemName: "person.fill"))
+        let feedNC = generateNC(viewController: FeedViewController(), itemName: "Feed", itemImage: UIImage(systemName: "house.fill"))
+        let profileNC = generateNC(viewController: ProfileViewController(), itemName: "Profile", itemImage : UIImage(systemName: "person.fill"))
         
             viewControllers = [feedNC,profileNC]
     }
