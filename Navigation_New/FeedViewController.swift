@@ -13,32 +13,78 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemPurple
-        myButton()
+        layout()
         
     }
-   
-    func myButton(){
-        let button = UIButton(frame: CGRect(x: 100, y: 150, width: 200,  height: 70))
-        button.layer.cornerRadius = 10
-        view.addSubview(button)
-        button.setTitle("New post", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .mainWhite
-        button.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
-    }
     
+    private let feedUIStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+   
+    
+//    func myButton(){
+//        let button = UIButton(frame: CGRect(x: 100, y: 150, width: 200,  height: 70))
+//        button.layer.cornerRadius = 10
+//        view.addSubview(button)
+//        button.setTitle("New post", for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        button.backgroundColor = .mainWhite
+//        button.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
+//    }
+//
     @objc func handleButtonTapped(){
         let postVC = PostViewController()
         navigationController?.pushViewController(postVC, animated: true)
         postVC.post = post
-        
+
     }
+    private lazy var firstFeedButton : UIButton = {
+        let firstFeedButton = UIButton()
+        firstFeedButton.setTitle("New post", for: .normal)
+        firstFeedButton.setTitleColor(.white, for: .normal)
+        firstFeedButton.backgroundColor = .lightGray
+        firstFeedButton.layer.cornerRadius = 10
+        firstFeedButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
+        return firstFeedButton
+    }()
     
+    private lazy var secondFeedButton : UIButton = {
+        let secondFeedButton = UIButton()
+        secondFeedButton.setTitle("New post", for: .normal)
+        secondFeedButton.setTitleColor(.white, for: .normal)
+        secondFeedButton.backgroundColor = .lightGray
+        secondFeedButton.layer.cornerRadius = 10
+        secondFeedButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
+        return secondFeedButton
+    }()
     
     
     let post = Post(title: "New Title")
+    
+    private func layout(){
+        view.addSubview(feedUIStackView)
+        feedUIStackView.addArrangedSubview(firstFeedButton)
+        feedUIStackView.addArrangedSubview(secondFeedButton)
+        
+        NSLayoutConstraint.activate([
+            feedUIStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            feedUIStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            feedUIStackView.heightAnchor.constraint(equalToConstant: 300),
+            feedUIStackView.widthAnchor.constraint(equalToConstant: 400)
+        
+        
+        
+        ])
+    }
 }
 
 struct Post {
     let title: String
 }
+
+

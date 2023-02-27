@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    private let nameLabel: UILabel = {
+    private let fullNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
@@ -20,7 +20,8 @@ class ProfileHeaderView: UIView {
         return label
     }()
     
-    private let profileImageView: UIImageView = {
+    
+    private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "image")
         imageView.contentMode = .scaleAspectFill// режим заполнения (fill) содержимого UIImageView путем масштабирования и обрезания краев изображения, чтобы оно заполняло все доступное место, сохраняя при этом пропорции.
@@ -32,17 +33,18 @@ class ProfileHeaderView: UIView {
         return imageView
     }()
     
-    private let profileStatusTextField : UITextField = {
-        let profileUITextField = UITextField()
-        profileUITextField.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        profileUITextField.text = "Waiting for something..."
-        profileUITextField.textColor = .gray
-        profileUITextField.textAlignment = .left
-        profileUITextField.translatesAutoresizingMaskIntoConstraints = false
-        return profileUITextField
+    private let statusLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .black
+        label.numberOfLines = 1 // текст внутри label отображается только в одну строку. Если текст не помещается в одну строку, то он будет обрезан и заменен троеточием.
+        label.textAlignment = .left // выравнивание
+        label.text = "Waiting for something..."
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    private lazy var profileEditStatusTextField : UITextField = {
+    private lazy var statusTextField : UITextField = {
         let profileEditStatusTextField = UITextField()
         profileEditStatusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         profileEditStatusTextField.textColor = .black
@@ -61,9 +63,8 @@ class ProfileHeaderView: UIView {
         return profileEditStatusTextField
     }()
     
-    private lazy var profileButton : UIButton = {
+    private lazy var setStatusButton : UIButton = {
         let profileButton = UIButton()
-        //        profileButton.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         profileButton.setTitle("Set status", for: .normal)
         profileButton.setTitleColor(.white, for: .normal)
         profileButton.backgroundColor = .blue
@@ -91,34 +92,34 @@ class ProfileHeaderView: UIView {
     
     private func setupUI() {
         
-        addSubview(profileImageView)
-        addSubview(nameLabel)
-        addSubview(profileStatusTextField)
-        addSubview(profileButton)
-        addSubview(profileEditStatusTextField)
+        addSubview(avatarImageView)
+        addSubview(fullNameLabel)
+        addSubview(statusLabel)
+        addSubview(setStatusButton)
+        addSubview(statusTextField)
         
         NSLayoutConstraint.activate([
-            profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),//по X
-            profileImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),//по Y
-            profileImageView.widthAnchor.constraint(equalToConstant: 100),//ширина
-            profileImageView.heightAnchor.constraint(equalToConstant: 100),//высота
+            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),//по X
+            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),//по Y
+            avatarImageView.widthAnchor.constraint(equalToConstant: 100),//ширина
+            avatarImageView.heightAnchor.constraint(equalToConstant: 100),//высота
             
-            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 36), // расстояние от изображения
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 36), // расстояние от изображения
+            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
-            profileButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            profileButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 36),
-            profileButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            profileButton.heightAnchor.constraint(equalToConstant: 50),//высота
+            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 36),
+            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),//высота
             
-            profileStatusTextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            profileStatusTextField.bottomAnchor.constraint(equalTo: profileButton.topAnchor, constant: -60),
+            statusLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
+            statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -60),
             
-            profileEditStatusTextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            profileEditStatusTextField.heightAnchor.constraint(equalToConstant: 40),
-            profileEditStatusTextField.topAnchor.constraint(equalTo: profileStatusTextField.bottomAnchor, constant: 10),
-            profileEditStatusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            statusTextField.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
+            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 10),
+            statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             
             
@@ -129,7 +130,7 @@ class ProfileHeaderView: UIView {
     
     @objc func buttonPressed() {
         print(statusText)
-        profileStatusTextField.text = statusText
+        statusLabel.text = statusText
     }
     
     @objc func statusTextChanged(_ textField: UITextField) {
