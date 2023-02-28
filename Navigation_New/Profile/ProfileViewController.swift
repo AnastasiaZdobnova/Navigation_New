@@ -26,6 +26,19 @@ class ProfileViewController: UIViewController {
         
     }
     
+    private lazy var newButton : UIButton = {
+        let profileButton = UIButton()
+        profileButton.setTitle("New Button", for: .normal)
+        profileButton.setTitleColor(.white, for: .normal)
+        profileButton.backgroundColor = .blue
+        //profileButton.layer.cornerRadius = 4
+        profileButton.translatesAutoresizingMaskIntoConstraints = false
+        
+//        profileButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        
+        return profileButton
+    }()
+    
     private func layout(){
         NSLayoutConstraint.activate([
             profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -40,24 +53,6 @@ class ProfileViewController: UIViewController {
             newButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
-    private lazy var newButton : UIButton = {
-        let profileButton = UIButton()
-        profileButton.setTitle("New Button", for: .normal)
-        profileButton.setTitleColor(.white, for: .normal)
-        profileButton.backgroundColor = .blue
-        profileButton.layer.cornerRadius = 4
-        profileButton.layer.shadowColor = UIColor.black.cgColor
-        profileButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        profileButton.layer.shadowRadius = 4
-        profileButton.layer.shadowOpacity = 0.7
-        profileButton.translatesAutoresizingMaskIntoConstraints = false
-        
-//        profileButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        
-        return profileButton
-    }()
-   
     
 
     /*

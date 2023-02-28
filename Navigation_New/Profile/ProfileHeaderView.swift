@@ -45,22 +45,22 @@ class ProfileHeaderView: UIView {
     }()
     
     private lazy var statusTextField : UITextField = {
-        let profileEditStatusTextField = UITextField()
-        profileEditStatusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        profileEditStatusTextField.textColor = .black
-        profileEditStatusTextField.backgroundColor = .white
-        profileEditStatusTextField.layer.cornerRadius = 12
-        profileEditStatusTextField.layer.borderColor = UIColor.black.cgColor
-        profileEditStatusTextField.layer.borderWidth = 1
-        profileEditStatusTextField.textAlignment = .left
-        profileEditStatusTextField.translatesAutoresizingMaskIntoConstraints = false
+        let textField = UITextField()
+        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        textField.textColor = .black
+        textField.backgroundColor = .white
+        textField.layer.cornerRadius = 12
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1
+        textField.textAlignment = .left
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
-        profileEditStatusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: profileEditStatusTextField.frame.height))
-        profileEditStatusTextField.leftViewMode = .always
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+        textField.leftViewMode = .always
         
-        profileEditStatusTextField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
+        textField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
         
-        return profileEditStatusTextField
+        return textField
     }()
     
     private lazy var setStatusButton : UIButton = {
@@ -131,6 +131,8 @@ class ProfileHeaderView: UIView {
     @objc func buttonPressed() {
         print(statusText)
         statusLabel.text = statusText
+
+        statusTextField.text = "" 
     }
     
     @objc func statusTextChanged(_ textField: UITextField) {
